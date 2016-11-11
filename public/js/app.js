@@ -1,5 +1,5 @@
  var template ='<option value="{{number}}">{{especie}}</option>';
- var plantilla ='<div id="show">{{personas}}</div>'
+ var plantilla ='<div>{{personas}}</div>'
 			    
  $(document).ready(function() {
    
@@ -16,16 +16,15 @@
     		especies += template.replace("{{especie}}", especie.name).replace("{{number}}", slach);
     	}); 
     	$("#especimen").change(function(event){
+    		var personajes="";
     	    var contador = $(this).val().split("/");
     		for (var i = 0; i < contador.length; i++) {
     			$.getJSON("http://swapi.co/api/people/" + contador[i], function(responsep){
     				personajes += plantilla.replace("{{personas}}", responsep.name);
-    				$("#show").append(personajes);
-    				
+    				$("#show").html(personajes);
     			});
     		}
     	});
-
-    	$("#especimen").append(especies);
+    	$("#especimen").html(especies);
     });
 });
